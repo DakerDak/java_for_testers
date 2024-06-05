@@ -21,7 +21,7 @@ public class Triangle {
 
 
     public double calculateAreaTriangle() {
-        var s = new Triangle(side1, side2, side3);
-        return Math.sqrt(s.calculateSemiPerimeter() * (s.calculateSemiPerimeter() - this.side1) * (s.calculateSemiPerimeter() - this.side2) * (s.calculateSemiPerimeter() - this.side3));
+
+        return Math.sqrt(this.calculateSemiPerimeter() * (this.calculateSemiPerimeter() - this.side1) * (this.calculateSemiPerimeter() - this.side2) * (this.calculateSemiPerimeter() - this.side3));
     }
 }
