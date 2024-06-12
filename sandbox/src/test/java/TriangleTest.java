@@ -16,4 +16,36 @@ public class TriangleTest {
         double result = s.calculateAreaTriangle ();
         Assertions.assertEquals(6.49519052838329, result);
     }
+
+    @Test
+    void cannotCreateWithNegativeSide1 () {
+        try {
+            new Triangle(-5,9,8);
+            Assertions.fail();
+        }
+        catch (IllegalArgumentException exception) {
+
+        }
+    }
+    @Test
+    void cannotCreateWithNegativeSide2 () {
+        try {
+            new Triangle(5,-9,8);
+            Assertions.fail();
+        }
+        catch (IllegalArgumentException exception) {
+
+        }
+    }
+
+    @Test
+    void  checkingСorrectnessSidesTriangle () {
+        try {
+            new Triangle(6, 5, 66);
+            Assertions.fail();
+        }
+        catch (IllegalArgumentException exception) {
+
+        }
+    }
 }
