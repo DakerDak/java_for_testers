@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 public class TriangleTest {
 
     @Test
-    void canCalculatePerimeter() {
+    void canCalculateHalfPerimeter() {
         var p = new Triangle(3, 5, 7);
         double result = p.calculateSemiPerimeter();
         Assertions.assertEquals(7.5, result);
