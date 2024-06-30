@@ -76,14 +76,13 @@ public class GroupHelper {
     
 
     private void fillGroupForm(GroupData group) {
-        click(By.name("group_name"));
-        manager.driver.findElement(By.name("group_name")).sendKeys(group.name());
-        click(By.name("group_header"));
-        manager.driver.findElement(By.name("group_header")).sendKeys(group.header());
-        click(By.name("group_footer"));
-        manager.driver.findElement(By.name("group_footer")).sendKeys(group.footer());
+        type(By.name("group_name"), group.name());
+        type(By.name("group_header"), group.header());
+        type(By.name("group_footer"), group.footer());
     }
-    
+
+
+
 
     private void initGroupModification() {
         click(By.name("edit"));
@@ -96,6 +95,12 @@ public class GroupHelper {
 
     private void click(By locator) {
         manager.driver.findElement(locator).click();
+    }
+
+    private void type(By locator, String text) {
+        click(locator);
+        manager.driver.findElement(locator).clear();
+        manager.driver.findElement(locator).sendKeys(text);
     }
     
 }
