@@ -43,7 +43,7 @@ public class TestBase {
       }
     }
 
-    protected void creationContact(String first_name, String middle_name, String last_mane) {
+    protected void creationContact(String first_name, String middle_name, String last_mane, String telephone_home, String telephone_mobile, String e_mail) {
         driver.findElement(By.linkText("add new")).click();
         driver.findElement(By.name("firstname")).click();
         driver.findElement(By.name("firstname")).sendKeys(first_name);
@@ -51,6 +51,12 @@ public class TestBase {
         driver.findElement(By.name("middlename")).sendKeys(middle_name);
         driver.findElement(By.name("lastname")).click();
         driver.findElement(By.name("lastname")).sendKeys(last_mane);
+
+        driver.findElement(By.name("home")).sendKeys(telephone_home);
+        driver.findElement(By.name("mobile")).click();
+        driver.findElement(By.name("mobile")).sendKeys(telephone_mobile);
+        driver.findElement(By.name("email")).click();
+        driver.findElement(By.name("email")).sendKeys(e_mail);
         driver.findElement(By.xpath("//input[20]")).click();
         driver.findElement(By.linkText("home")).click();
     }

@@ -9,7 +9,7 @@ public class DeleteContactTest extends TestBase {
   public void canDeleteContact() {
     openContactsPage();
     if (!isContactPresent()) {
-      creationContact("first name", "middle name", "last mane");
+      creationContact("first name", "middle name", "last mane","895965854", "99999", "e_mail");
     }
     deleteContact();
   }
