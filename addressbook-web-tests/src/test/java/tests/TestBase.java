@@ -51,7 +51,7 @@ public class TestBase {
         driver.findElement(By.name("middlename")).sendKeys(middle_name);
         driver.findElement(By.name("lastname")).click();
         driver.findElement(By.name("lastname")).sendKeys(last_mane);
-        driver.findElement(By.cssSelector("input:nth-child(75)")).click();
+        driver.findElement(By.xpath("//input[20]")).click();
         driver.findElement(By.linkText("home")).click();
     }
 
