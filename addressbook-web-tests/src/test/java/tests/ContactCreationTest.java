@@ -1,5 +1,6 @@
 package tests;
 
+import model.ContactData;
 import org.junit.jupiter.api.Test;
 
 public class ContactCreationTest extends TestBase {
@@ -10,12 +11,12 @@ public class ContactCreationTest extends TestBase {
     public void contactCreation() {
 
 
-        creationContact("first name", "middle name", "last mane", "895965854", "99999", "e_mail");
+        creationContact(new ContactData("first name", "middle name", "last mane", "895965854", "99999", "e_mail"));
     }
 
     @Test
     public void contactCreationWithEmptyName() {
 
-        creationContact("", "", "","","","");
+        creationContact(new ContactData("", "", "", "", "", ""));
     }
 }
