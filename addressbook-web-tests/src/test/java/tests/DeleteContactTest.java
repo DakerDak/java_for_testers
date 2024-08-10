@@ -9,10 +9,14 @@ public class DeleteContactTest extends TestBase {
   @Test
   public void canDeleteContact() {
     driver.findElement(By.linkText("home")).click();
-    if (!isElementPresent2(By.name("selected[]"))) {
+    if (!isContactPresent()) {
       creationContact("first name", "middle name", "last mane");
     }
     deleteContact();
+  }
+
+  private boolean isContactPresent() {
+    return isElementPresent2(By.name("selected[]"));
   }
 
   private void deleteContact() {
