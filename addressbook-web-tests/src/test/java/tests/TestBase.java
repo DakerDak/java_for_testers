@@ -54,4 +54,17 @@ public class TestBase {
         driver.findElement(By.cssSelector("input:nth-child(75)")).click();
         driver.findElement(By.linkText("home")).click();
     }
+
+    protected boolean isContactPresent() {
+      return isElementPresent2(By.name("selected[]"));
+    }
+
+    protected void deleteContact() {
+      driver.findElement(By.name("selected[]")).click();
+      driver.findElement(By.xpath("//input[@value=\'Delete\']")).click();
+    }
+
+    protected void openContactsPage() {
+      driver.findElement(By.linkText("home")).click();
+    }
 }
