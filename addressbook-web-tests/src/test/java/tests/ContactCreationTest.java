@@ -17,6 +17,14 @@ public class ContactCreationTest extends TestBase {
     @Test
     public void contactCreationWithEmptyName() {
 
-        creationContact(new ContactData("", "", "", "", "", ""));
+        creationContact(new ContactData());
+    }
+
+    @Test
+    public void contactCreationWithNameOnly() {
+        var emptyContact =new ContactData();
+        var contactWithName = emptyContact.withName("some name");
+
+        creationContact(contactWithName);
     }
 }
