@@ -11,13 +11,13 @@ public class ContactCreationTest extends TestBase {
     public void contactCreation() {
 
 
-        creationContact(new ContactData("first name", "middle name", "last mane", "895965854", "99999", "e_mail"));
+        app.contacts().creationContact(new ContactData("first name", "middle name", "last mane", "895965854", "99999", "e_mail"));
     }
 
     @Test
     public void contactCreationWithEmptyName() {
 
-        creationContact(new ContactData());
+        app.contacts().creationContact(new ContactData());
     }
 
     @Test
@@ -25,6 +25,6 @@ public class ContactCreationTest extends TestBase {
         var emptyContact =new ContactData();
         var contactWithName = emptyContact.withName("some name");
 
-        creationContact(contactWithName);
+        app.contacts().creationContact(contactWithName);
     }
 }
