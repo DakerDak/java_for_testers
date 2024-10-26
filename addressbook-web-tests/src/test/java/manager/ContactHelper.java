@@ -81,6 +81,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void initContactModification() {
+
         manager.driver.findElement(By.xpath("//tr[8]/td[8]/a/img")).click();
     }
 
@@ -91,6 +92,19 @@ public class ContactHelper extends HelperBase {
     public int getCount() {
         openContactsPage();
         return manager.driver.findElements(By.name("selected[]")).size();
+    }
+
+    private void selectAllContacs() {
+        var checkboxes = manager.driver.findElements(By.name("selected[]"));
+        for (var checkbox : checkboxes) {
+            checkbox.click();
+        }
+    }
+
+    public void removeAllContacts() {
+        openContactsPage();
+        selectAllContacs();
+        removeSelectedContact();
     }
 }
 
