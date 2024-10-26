@@ -11,7 +11,62 @@ public class ContactHelper extends HelperBase {
 
 
     public void creationContact(ContactData contact) {
+        initContactCreation();
+        fillContactForm(contact);
+        submitContactCreation();
+        returnToContactPage();
+
+    }
+
+    public void modifyContact(ContactData modifiedContact) {
+        openContactsPage();
+        selectContact();
+        initContactModification();
+        fillContactForm(modifiedContact);
+        submitContactModification();
+        returnToContactPage();
+    }
+
+    public void deleteContact() {
+        selectContact();
+        removeSelectedContact();
+    }
+
+
+    private void submitContactCreation() {
+        click(By.xpath("//input[20]"));
+    }
+
+    private void initContactCreation() {
         click(By.linkText("add new"));
+    }
+
+    public boolean isContactPresent() {
+        openContactsPage();
+        return manager.isElementPresent(By.name("selected[]"));
+    }
+
+
+
+    private void removeSelectedContact() {
+        click(By.xpath("//input[@value=\'Delete\']"));
+    }
+
+    public void openContactsPage() {
+
+        click(By.linkText("home"));
+    }
+
+
+    private void returnToContactPage() {
+        click(By.linkText("home"));
+    }
+
+    private void submitContactModification() {
+        click(By.name("update"));
+    }
+
+    private void fillContactForm(ContactData contact) {
         click(By.name("firstname"));
         type(By.name("firstname"), contact.first_name());
         click(By.name("middlename"));
@@ -23,23 +78,14 @@ public class ContactHelper extends HelperBase {
         type(By.name("mobile"), contact.telephone_mobile());
         click(By.name("email"));
         type(By.name("email"), contact.e_mail());
-        click(By.xpath("//input[20]"));
-        click(By.linkText("home"));
-
     }
 
-    public boolean isContactPresent() {
-        openContactsPage();
-        return manager.isElementPresent(By.name("selected[]"));
+    private void initContactModification() {
+        manager.driver.findElement(By.xpath("//tr[8]/td[8]/a/img")).click();
     }
 
-    public void deleteContact() {
+    private void selectContact() {
         click(By.name("selected[]"));
-        click(By.xpath("//input[@value=\'Delete\']"));
-    }
-
-    public void openContactsPage() {
-        click(By.linkText("home"));
     }
 }
 

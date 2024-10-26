@@ -1,5 +1,6 @@
 package manager;
 
+import model.ContactData;
 import model.GroupData;
 import org.openqa.selenium.By;
 
@@ -106,4 +107,6 @@ public class GroupHelper extends HelperBase{
             checkbox.click();
         }
     }
+
+
 }
