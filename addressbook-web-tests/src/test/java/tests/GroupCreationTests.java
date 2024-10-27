@@ -49,7 +49,7 @@ public class GroupCreationTests extends TestBase {
         };
         newGroups.sort(compareById);
         var expectedList = new ArrayList<>(oldGroups);
-        expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()));
+        expectedList.add(group.withId(newGroups.get(newGroups.size() - 1).id()).withHeader("").withFooter(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newGroups , expectedList);
     }
@@ -67,10 +67,9 @@ public class GroupCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("negativeGroupProvider")
     public void canNotCreateGroup(GroupData group) {
-
-        int groupCount =app.groups().getCount();
+        var oldGroups = app.groups().getList();
         app.groups().createGroup(group);
-        int newGroupCount = app.groups().getCount();
-        Assertions.assertEquals(groupCount, newGroupCount);
+        var newGroups = app.groups().getList();
+        Assertions.assertEquals(newGroups , oldGroups);
     }
 }
