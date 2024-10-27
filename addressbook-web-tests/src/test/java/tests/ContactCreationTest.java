@@ -48,26 +48,41 @@ public class ContactCreationTest extends TestBase {
 
         }
 
+    public static List<ContactData> negativeContactProvider() {
+        var result = new ArrayList<ContactData>(List.of (
 
+                new ContactData ("", "middle name'", "", "", "", "")));
 
-    @Test
-    public void contactCreation() {
-
-
-        app.contacts().creationContact(new ContactData("first name", "middle name", "last mane", "895965854", "99999", "e_mail"));
+        return result;
     }
 
-    @Test
-    public void contactCreationWithEmptyName() {
+    @ParameterizedTest
+    @MethodSource("negativeContactProvider")
+    public void canNotCreateGroup(ContactData contact) {
 
-        app.contacts().creationContact(new ContactData());
+        int contactCount =app.contacts().getCount();
+        app.contacts().creationContact(contact);
+        int newContactCount = app.contacts().getCount();
+        Assertions.assertEquals(contactCount, newContactCount);
     }
 
-    @Test
-    public void contactCreationWithNameOnly() {
-        var emptyContact =new ContactData();
-        var contactWithName = emptyContact.withName("some name");
 
-        app.contacts().creationContact(contactWithName);
-    }
+
+
+//    @Test
+//    public void contactCreation() {
+//        app.contacts().creationContact(new ContactData("first name", "middle name", "last mane", "895965854", "99999", "e_mail"));
+//    }
+//
+//    @Test
+//    public void contactCreationWithEmptyName() {
+//        app.contacts().creationContact(new ContactData());
+//    }
+//
+//    @Test
+//    public void contactCreationWithNameOnly() {
+//        var emptyContact =new ContactData();
+//        var contactWithName = emptyContact.withName("some name");
+//        app.contacts().creationContact(contactWithName);
+//    }
 }
