@@ -42,7 +42,6 @@ public class GroupCreationTests extends TestBase {
 
         app.groups().createGroup(group);
 
-
         var newGroups = app.groups().getList();
         Comparator<GroupData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
