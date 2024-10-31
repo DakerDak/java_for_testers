@@ -1,7 +1,7 @@
 package tests;
 
 import model.ContactData;
-import model.GroupData;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,24 +13,24 @@ public class DeleteContactTest extends TestBase {
 
 
 
-//  @Test
-//  public void CanRemoveContact() {
-//
-//    if (app.contacts().getCount() == 0) {
-//      app.contacts().creationContact(new ContactData("", "", "", "", "", "", ""));
-//    }
-//
-//    var oldContacts = app.contacts().getList();
-//    var rnd = new Random();
-//    var index = rnd.nextInt(oldContacts.size());
-//    app.groups().removeGroup(oldContacts.get(index));
-//    var newGroups = app.groups().getList();
-//    var expectedList = new ArrayList<>(oldContacts);
-//    expectedList.remove(index);
-//
-//    Assertions.assertEquals(newGroups , expectedList);
-//
-//  }
+  @Test
+  public void CanRemoveContact() {
+
+    if (app.contacts().getCount() == 0) {
+      app.contacts().creationContact(new ContactData("", "", "", "", "", "", ""));
+    }
+
+    var oldContacts = app.contacts().getList();
+    var rnd = new Random();
+    var index = rnd.nextInt(oldContacts.size());
+    app.contacts().deleteContact(oldContacts.get(index));
+    var newContacts = app.contacts().getList();
+    var expectedList = new ArrayList<>(oldContacts);
+    expectedList.remove(index);
+
+    Assertions.assertEquals(newContacts , expectedList);
+
+  }
 
 
 

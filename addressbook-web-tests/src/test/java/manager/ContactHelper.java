@@ -2,6 +2,7 @@ package manager;
 
 import model.ContactData;
 
+import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -32,9 +33,11 @@ public class ContactHelper extends HelperBase {
         returnToContactPage();
     }
 
-    public void deleteContact() {
+    public void deleteContact(ContactData contact) {
+        openContactsPage();
         selectContact();
         removeSelectedContact();
+        returnToContactPage();
     }
 
 
