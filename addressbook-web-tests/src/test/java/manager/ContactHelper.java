@@ -24,10 +24,10 @@ public class ContactHelper extends HelperBase {
 
     }
 
-    public void modifyContact(ContactData modifiedContact) {
+    public void modifyContact(ContactData contact,  ContactData modifiedContact) {
         openContactsPage();
-        selectContact();
-        initContactModification();
+        selectContact(contact);
+        initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
         returnToContactPage();
@@ -35,7 +35,7 @@ public class ContactHelper extends HelperBase {
 
     public void deleteContact(ContactData contact) {
         openContactsPage();
-        selectContact();
+        selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
     }
@@ -87,13 +87,21 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contact.e_mail());
     }
 
-    private void initContactModification() {
+    private void initContactModification(ContactData contact) {
 
-        manager.driver.findElement(By.xpath("//tr[8]/td[8]/a/img")).click();
+//        manager.driver.findElement(By.xpath("//tr[8]/td[8]/a/img")).click();
+//        click(By.cssSelector("td.center > a[href*=\"edit.php\"]"));
+//        click(By.cssSelector(String.format("td.center > a[href*=\\\"edit.php\\\"]", contact.id())));
+        // Подставляем значение ID
+        String groupId = String.valueOf(contact.id()); // Преобразуем результат вызова group.id() в строку
+        String cssSelector = String.format("a[href=\"edit.php?id=%s\"]", groupId);
+        click(By.cssSelector(cssSelector));
+
     }
 
-    private void selectContact() {
-        click(By.name("selected[]"));
+    private void selectContact(ContactData contact) {
+//        click(By.name("selected[]", contact.id())));
+        click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
     public int getCount() {
@@ -120,38 +128,23 @@ public class ContactHelper extends HelperBase {
         var rows = manager.driver.findElements(By.xpath("//tr[@name='entry']"));
 
         for (WebElement row : rows) {
-            // Извлекаем id контакта из чекбокса в первой ячейке строки
+
             String id = row.findElement(By.xpath(".//input[@type='checkbox']")).getAttribute("value");
 
-            // Извлекаем фамилию и имя с помощью XPath
+
             String lastName = row.findElement(By.xpath(".//td[2]")).getText();
             String firstName = row.findElement(By.xpath(".//td[3]")).getText();
 
-            // Создаем объект ContactData и заполняем его поля
+
             ContactData contact = new ContactData()
                     .withId(id)
                     .withName(firstName)
                     .withLastName(lastName);
 
-            // Добавляем объект ContactData в список
+
             contacts.add(contact);
         }
 
-
-
-
-//        for (var tr : trs) {
-//
-//                var cells = tr.findElements(By.tagName("td"));
-//                var firstCell = cells.get(3);
-//                var name = firstCell.getText();
-//               var secondCell = cells.get(4);
-//               var lastName = secondCell.getText();
-////              var name = tr.getText();
-//                var checkbox = tr.findElement(By.name("selected[]"));
-//                var id = checkbox.getAttribute("value");
-//                contacts.add(new ContactData().withId(id).withName(name).withLastName(lastName));
-//            }
             return contacts;
         }
 
