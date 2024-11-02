@@ -92,7 +92,7 @@ public class ContactCreationTest extends TestBase {
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of (
 
-                new ContactData ("", "", "middle name'", "", "", "", "")));
+                new ContactData ("", "", "middle name'", "", "", "", "", "")));
 
         return result;
     }
@@ -106,6 +106,16 @@ public class ContactCreationTest extends TestBase {
         Assertions.assertEquals(newContacts , oldContacts);
     }
 
+    @Test
+    public void canCreateContact() {
+        var contact = new ContactData()
+                .withName(randomString(10))
+                .withLastName(randomString(10))
+                .withPhoto("src/test/resources/images/avatar.png");
+        app.contacts().creationContact(contact);
+
+
+    }
 
 
 //    @ParameterizedTest

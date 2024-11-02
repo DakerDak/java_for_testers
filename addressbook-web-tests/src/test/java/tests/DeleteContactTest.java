@@ -17,7 +17,7 @@ public class DeleteContactTest extends TestBase {
   public void CanRemoveContact() {
 
     if (app.contacts().getCount() == 0) {
-      app.contacts().creationContact(new ContactData("", "", "", "", "", "", ""));
+      app.contacts().creationContact(new ContactData("", "", "", "", "", "", "", ""));
     }
 
     var oldContacts = app.contacts().getList();
@@ -51,7 +51,7 @@ public class DeleteContactTest extends TestBase {
   @Test
   void canRemoveAllContactsAtOnce() {
     if (app.contacts().getCount() == 0) {
-      app.contacts().creationContact(new ContactData("", "", "", "", "", "", ""));
+      app.contacts().creationContact(new ContactData("", "", "", "", "", "", "", ""));
     }
     app.contacts().removeAllContacts();
     Assertions.assertEquals(0, app.contacts().getCount());

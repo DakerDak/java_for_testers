@@ -26,7 +26,7 @@ public class ContactHelper extends HelperBase {
 
     public void modifyContact(ContactData contact,  ContactData modifiedContact) {
         openContactsPage();
-        selectContact(contact);
+//        selectContact(contact);
         initContactModification(contact);
         fillContactForm(modifiedContact);
         submitContactModification();
@@ -85,6 +85,8 @@ public class ContactHelper extends HelperBase {
         type(By.name("mobile"), contact.telephone_mobile());
         click(By.name("email"));
         type(By.name("email"), contact.e_mail());
+        attach(By.name("photo"), contact.photo());
+
     }
 
     private void initContactModification(ContactData contact) {
@@ -100,7 +102,7 @@ public class ContactHelper extends HelperBase {
     }
 
     private void selectContact(ContactData contact) {
-//        click(By.name("selected[]", contact.id())));
+
         click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
