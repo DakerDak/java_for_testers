@@ -111,7 +111,7 @@ public class ContactCreationTest extends TestBase {
         var contact = new ContactData()
                 .withName(randomString(10))
                 .withLastName(randomString(10))
-                .withPhoto("src/test/resources/images/avatar.png");
+                .withPhoto(randomFile("src/test/resources/images"));
         app.contacts().creationContact(contact);
 
 
