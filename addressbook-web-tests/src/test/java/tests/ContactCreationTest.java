@@ -1,7 +1,7 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
-import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,7 +10,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ContactCreationTest extends TestBase {
 
@@ -39,12 +38,12 @@ public class ContactCreationTest extends TestBase {
 //        }
         for (int i = 0; i < 5; i++){
             result.add(new ContactData()
-                    .withName(randomString(i * 10))
-                    .withMiddleName(randomString(i * 10))
-                    .withLastName(randomString(i * 10))
-                    .withTelephoneHome(randomString(i * 10))
-                    .withTelephoneMobile(randomString(i * 10))
-                    .withEmail(randomString(i * 10)));
+                    .withName(CommonFunctions.randomString(i * 10))
+                    .withMiddleName(CommonFunctions.randomString(i * 10))
+                    .withLastName(CommonFunctions.randomString(i * 10))
+                    .withTelephoneHome(CommonFunctions.randomString(i * 10))
+                    .withTelephoneMobile(CommonFunctions.randomString(i * 10))
+                    .withEmail(CommonFunctions.randomString(i * 10)));
         }
         return result;
     }
@@ -109,8 +108,8 @@ public class ContactCreationTest extends TestBase {
     @Test
     public void canCreateContact() {
         var contact = new ContactData()
-                .withName(randomString(10))
-                .withLastName(randomString(10))
+                .withName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(10))
                 .withPhoto(randomFile("src/test/resources/images"));
         app.contacts().creationContact(contact);
 

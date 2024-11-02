@@ -85,7 +85,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("mobile"), contact.telephone_mobile());
         click(By.name("email"));
         type(By.name("email"), contact.e_mail());
-        attach(By.name("photo"), contact.photo());
+         attach(By.name("photo"), contact.photo());
 
     }
 
