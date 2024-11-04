@@ -12,11 +12,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -67,10 +64,10 @@ public class GroupCreationTests extends TestBase {
     @ParameterizedTest
     @MethodSource("singleRandomGroup")
     public void canCreateGroup2(GroupData group) {
-        var oldGroups = app.hmb().getGroupList();
+        var oldGroups = app.hbm().getGroupList();
         app.groups().createGroup(group);
 
-        var newGroups = app.hmb().getGroupList();
+        var newGroups = app.hbm().getGroupList();
         Comparator<GroupData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
