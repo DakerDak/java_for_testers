@@ -61,15 +61,14 @@ public class ContactCreationTest extends TestBase {
 
 
 
-
     @ParameterizedTest
     @MethodSource("singleRandomContact")
-    public void canCreateGroup(ContactData contact) {
-        var oldContacts = app.jdbc().getContactList();
+    public void canCreateContact2(ContactData contact) {
+        var oldContacts = app.hbm().getContactList();
 
         app.contacts().creationContact(contact);
 
-        var newContacts = app.jdbc().getContactList();
+        var newContacts = app.hbm().getContactList();
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
@@ -82,6 +81,32 @@ public class ContactCreationTest extends TestBase {
 
 //        var newUiGroups = app.groups().getList(); тут можно сделать проверку сравнения список с веб интерфейса и спосок из базы
     }
+
+
+
+
+
+
+//    @ParameterizedTest
+//    @MethodSource("singleRandomContact")
+//    public void canCreateContact(ContactData contact) {
+//        var oldContacts = app.jdbc().getContactList();
+//
+//        app.contacts().creationContact(contact);
+//
+//        var newContacts = app.jdbc().getContactList();
+//        Comparator<ContactData> compareById = (o1, o2) -> {
+//            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+//        };
+//        newContacts.sort(compareById);
+//        var maxId = newContacts.get(newContacts.size() - 1).id();
+//        var expectedList = new ArrayList<>(oldContacts);
+//        expectedList.add(contact.withId(maxId));
+//        expectedList.sort(compareById);
+//        Assertions.assertEquals(newContacts , expectedList);
+//
+////        var newUiGroups = app.groups().getList(); тут можно сделать проверку сравнения список с веб интерфейса и спосок из базы
+//    }
 
 
 
