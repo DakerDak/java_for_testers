@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import common.CommonFunctions;
 import model.ContactData;
+import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -44,6 +45,36 @@ public class ContactCreationTest extends TestBase {
         var value = mapper.readValue(new File("contacts.json"), new TypeReference<List<ContactData>>() {});
         result.addAll(value);
         return result;
+    }
+
+
+    public static List<ContactData> singleRandomContact()  {
+        return   List.of(new ContactData()
+                .withName(CommonFunctions.randomString(10))
+                .withLastName(CommonFunctions.randomString(20))
+                .withMiddleName(CommonFunctions.randomString(30)));
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("singleRandomContact")
+    public void canCreateGroup(ContactData contact) {
+        var oldContacts = app.jdbc().getContactList();
+
+        app.contacts().creationContact(contact);
+
+        var newContacts = app.jdbc().getContactList();
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newContacts.sort(compareById);
+        var maxId = newContacts.get(newContacts.size() - 1).id();
+        var expectedList = new ArrayList<>(oldContacts);
+        expectedList.add(contact.withId(maxId));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newContacts , expectedList);
+
+//        var newUiGroups = app.groups().getList(); тут можно сделать проверку сравнения список с веб интерфейса и спосок из базы
     }
 
 
