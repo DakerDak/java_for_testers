@@ -56,6 +56,12 @@ public class ContactCreationTest extends TestBase {
     }
 
 
+
+
+
+
+
+
     @ParameterizedTest
     @MethodSource("singleRandomContact")
     public void canCreateGroup(ContactData contact) {
