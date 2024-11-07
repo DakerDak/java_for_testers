@@ -183,7 +183,7 @@ public class ContactCreationTest extends TestBase {
                 .withLastName(CommonFunctions.randomString(10))
                 .withPhoto(randomFile("src/test/resources/images"));
         if (app.hbm().getCroupCount() == 0) {
-            app.hbm().createGroup(new GroupData("", "", "", ""));
+            app.hbm().createGroup(new GroupData("", "ff", "", ""));
         }
         var group = app.hbm().getGroupList().get(0);
 

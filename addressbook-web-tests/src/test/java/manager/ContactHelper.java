@@ -120,6 +120,12 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector(String.format("input[value='%s']", contact.id())));
     }
 
+    private void selectContact2() {
+
+        WebElement checkbox = manager.driver.findElement(By.cssSelector("input[name='selected[]'][title*='Select']"));
+        checkbox.click();
+    }
+
     public int getCount() {
         openContactsPage();
         return manager.driver.findElements(By.name("selected[]")).size();
@@ -165,6 +171,22 @@ public class ContactHelper extends HelperBase {
         }
 
 
+    public void deleteContactWithGroup(ContactData contact, GroupData group) {
+        openContactsPage();
+        selectGroupForDeleteContact(group);
+        selectContact2();
+        removeFromGroupSelectedContact();
+        returnToContactPage();
+    }
+
+    private void removeFromGroupSelectedContact() {
+        click(By.name("remove"));
+    }
+
+    private void selectGroupForDeleteContact(GroupData group) {
+        new Select(manager.driver.findElement(By.name("group"))).selectByValue(group.id());
+    }
+    
 }
 
 

@@ -1,7 +1,9 @@
 package tests;
 
+import common.CommonFunctions;
 import model.ContactData;
 
+import model.GroupData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -81,9 +83,29 @@ public class DeleteContactTest extends TestBase {
 //  public void canDeleteContact() {
 //    app.contacts().openContactsPage();
 //    if (!app.contacts().isContactPresent()) {
-//      app.contacts().creationContact(new ContactData("first name", "middle name", "last mane", "895965854", "99999", "e_mail"));
+//      app.contacts().creationContact(new ContactData("first name", "middle name", "last mane", "895965854", "99999", "e_mail", "",""));
 //    }
 //    app.contacts().deleteContact();
 //  }
+
+  @Test
+  public void canDeleteContactInGroup() {
+    var contact = new ContactData()
+            .withName(CommonFunctions.randomString(10))
+            .withLastName(CommonFunctions.randomString(10))
+            .withPhoto(randomFile("src/test/resources/images"));
+    if (app.hbm().getCroupCount() == 0) {
+      app.hbm().createGroup(new GroupData("", "ff", "", ""));
+    }
+
+    var group = app.hbm().getGroupList().get(0);
+
+//    var oldRelated = app.hbm().getContactsInGroup(group); //получаем список контактов, которые входят в заданную группу
+    app.contacts().creationContactWithGroup(contact, group);
+    var newRelated = app.hbm().getContactsInGroup(group);
+//    Assertions.assertEquals(oldRelated.size() + 1, newRelated.size()); //сравниваем спосок контактов,находящиеся в группе, что он увеличился на один.
+    app.contacts().deleteContactWithGroup(contact, group);
+
+  }
 
 }
