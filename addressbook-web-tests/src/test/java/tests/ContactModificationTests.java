@@ -12,20 +12,18 @@ public class ContactModificationTests extends TestBase {
 
 
 
-
-
     @Test
-    void canModifyContact2() {
-        if (app.contacts().getCount() == 0) {
-            app.contacts().creationContact(new ContactData("", "", "", "", "", "", "", ""));
+    void canModifyContact3() {
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "", "", "", "", "", "", ""));
 
         }
-        var oldContacts = app.contacts().getList();
+        var oldContacts = app.hbm().getContactList();
         var rnd = new Random();
         var index = rnd.nextInt(oldContacts.size());
         var testDate = new ContactData().withName("modified name");
         app.contacts().modifyContact(oldContacts.get(index), testDate);
-        var newContacts = app.contacts().getList();
+        var newContacts = app.hbm().getContactList();
         var expectedList = new ArrayList<>(oldContacts);
         expectedList.set(index, testDate.withId(oldContacts.get(index).id()));
         Comparator<ContactData> compareById = (o1, o2) -> {
@@ -37,6 +35,30 @@ public class ContactModificationTests extends TestBase {
         Assertions.assertEquals(newContacts, expectedList);
 
     }
+
+//    @Test
+//    void canModifyContact2() {
+//        if (app.contacts().getCount() == 0) {
+//            app.contacts().creationContact(new ContactData("", "", "", "", "", "", "", ""));
+//
+//        }
+//        var oldContacts = app.contacts().getList();
+//        var rnd = new Random();
+//        var index = rnd.nextInt(oldContacts.size());
+//        var testDate = new ContactData().withName("modified name");
+//        app.contacts().modifyContact(oldContacts.get(index), testDate);
+//        var newContacts = app.contacts().getList();
+//        var expectedList = new ArrayList<>(oldContacts);
+//        expectedList.set(index, testDate.withId(oldContacts.get(index).id()));
+//        Comparator<ContactData> compareById = (o1, o2) -> {
+//            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+//        };
+//
+//        newContacts.sort(compareById);
+//        expectedList.sort(compareById);
+//        Assertions.assertEquals(newContacts, expectedList);
+//
+//    }
 
 //        @Test
 //    void canModifyContact() {
