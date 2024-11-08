@@ -49,9 +49,17 @@ public class ContactHelper extends HelperBase {
 
     public void deleteContact(ContactData contact) {
         openContactsPage();
+        openGroupsPage();
+        openContactsPage();
         selectContact(contact);
         removeSelectedContact();
         returnToContactPage();
+    }
+
+    private void openGroupsPage() {
+        if (!manager.isElementPresent(By.name("new"))) {
+            click(By.linkText("groups"));
+        }
     }
 
 

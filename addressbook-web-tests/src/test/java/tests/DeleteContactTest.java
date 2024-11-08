@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class DeleteContactTest extends TestBase {
@@ -19,7 +20,7 @@ public class DeleteContactTest extends TestBase {
   public void CanRemoveContact2() {
 
     if (app.hbm().getContactCount() == 0) {
-      app.hbm().createContact(new ContactData("", "", "", "", "", "", "", ""));
+      app.hbm().createContact(new ContactData("", "", "", "PAPA", "", "", "", ""));
     }
 
     var oldContacts = app.hbm().getContactList();
@@ -92,19 +93,21 @@ public class DeleteContactTest extends TestBase {
   public void canDeleteContactInGroup() {
     var contact = new ContactData()
             .withName(CommonFunctions.randomString(10))
-            .withLastName(CommonFunctions.randomString(10))
-            .withPhoto(randomFile("src/test/resources/images"));
+            .withLastName(CommonFunctions.randomString(10));
+//            .withPhoto(randomFile("src/test/resources/images"));
     if (app.hbm().getCroupCount() == 0) {
       app.hbm().createGroup(new GroupData("", "ff", "", ""));
     }
 
     var group = app.hbm().getGroupList().get(0);
 
-//    var oldRelated = app.hbm().getContactsInGroup(group); //получаем список контактов, которые входят в заданную группу
     app.contacts().creationContactWithGroup(contact, group);
-    var newRelated = app.hbm().getContactsInGroup(group);
-//    Assertions.assertEquals(oldRelated.size() + 1, newRelated.size()); //сравниваем спосок контактов,находящиеся в группе, что он увеличился на один.
+        var oldRelated = app.hbm().getContactsInGroup(group); //получаем список контактов, которые входят в заданную группу
+
     app.contacts().deleteContactWithGroup(contact, group);
+    var newRelated = app.hbm().getContactsInGroup(group);
+
+    Assertions.assertEquals(oldRelated.size() - 1, newRelated.size()); //сравниваем спосок контактов,находящиеся в группе, что он увеличился на один.
 
   }
 

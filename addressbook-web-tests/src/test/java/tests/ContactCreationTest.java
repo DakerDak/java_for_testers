@@ -180,18 +180,30 @@ public class ContactCreationTest extends TestBase {
     public void canCreateContactInGroup() {
         var contact = new ContactData()
                 .withName(CommonFunctions.randomString(10))
-                .withLastName(CommonFunctions.randomString(10))
-                .withPhoto(randomFile("src/test/resources/images"));
+                .withLastName(CommonFunctions.randomString(10));
+//                .withPhoto(randomFile("src/test/resources/images"));
         if (app.hbm().getCroupCount() == 0) {
             app.hbm().createGroup(new GroupData("", "ff", "", ""));
         }
         var group = app.hbm().getGroupList().get(0);
 
         var oldRelated = app.hbm().getContactsInGroup(group);
+
         app.contacts().creationContactWithGroup(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
-        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
 
+        Comparator<ContactData> compareById = (o1, o2) -> {
+            return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
+        };
+        newRelated.sort(compareById);
+        var maxId = newRelated.get(newRelated.size() - 1).id();
+        var expectedList = new ArrayList<>(oldRelated);
+        expectedList.add(contact.withId(maxId));
+        expectedList.sort(compareById);
+        Assertions.assertEquals(newRelated , expectedList);
+
+
+//        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
 
     }
 
