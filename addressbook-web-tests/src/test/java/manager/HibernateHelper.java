@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HibernateHelper extends HelperBase {
 
@@ -27,12 +28,9 @@ public class HibernateHelper extends HelperBase {
                 .buildSessionFactory();
     }
 
-    static List<GroupData> convertList(List<GroupRecord> records) {
-        List<GroupData> result = new ArrayList<>();
-        for (var record : records) {
-            result.add(convert(record));
-        }
-        return result;
+    static List<GroupData> convertGroupList(List<GroupRecord> records) {
+        return  records.stream().map(HibernateHelper::convert).collect(Collectors.toList());
+
     }
 
     private static GroupData convert(GroupRecord record) {
@@ -48,7 +46,7 @@ public class HibernateHelper extends HelperBase {
     }
 
     public List<GroupData> getGroupList() {
-        return convertList(sessionFactory.fromSession(session -> {
+        return convertGroupList(sessionFactory.fromSession(session -> {
             return session.createQuery("from GroupRecord", GroupRecord.class).list();
         }));
     }
@@ -69,12 +67,8 @@ public class HibernateHelper extends HelperBase {
     }
 
 
-    static List<ContactData> convertList2(List<ContactRecord> records) {
-        List<ContactData> result = new ArrayList<>();
-        for (var record : records) {
-            result.add(convert2(record));
-        }
-        return result;
+    static List<ContactData> convertContactList(List<ContactRecord> records) {
+        return  records.stream().map(HibernateHelper::convert2).collect(Collectors.toList());
     }
 
 
@@ -93,7 +87,7 @@ public class HibernateHelper extends HelperBase {
     }
 
     public List<ContactData> getContactList() {
-        return convertList2(sessionFactory.fromSession(session -> {
+        return convertContactList(sessionFactory.fromSession(session -> {
             return session.createQuery("from ContactRecord", ContactRecord.class).list();
         }));
     }
@@ -101,7 +95,7 @@ public class HibernateHelper extends HelperBase {
 
     public List<ContactData> getContactsInGroup(GroupData group) {
         return sessionFactory.fromSession(session -> {
-            return convertList2(session.get(GroupRecord.class, group.id()).contacts);
+            return convertContactList(session.get(GroupRecord.class, group.id()).contacts);
         });
     }
 
