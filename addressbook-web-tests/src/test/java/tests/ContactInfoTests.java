@@ -42,4 +42,20 @@ public class ContactInfoTests extends TestBase {
                 .collect(Collectors.joining("\n"));
         Assertions.assertEquals(expected, email);
     }
+
+    @Test
+    void testAddres() {
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
+
+        }
+        openContactsPage();
+        var contacts = app.hbm().getContactList();
+        var contact = contacts.get(0);
+        var addres = app.contacts().getAddres(contact);
+        var expected = Stream.of(contact.address())
+                .filter(s -> s != null && ! "".equals(s))
+                .collect(Collectors.joining("\n"));
+        Assertions.assertEquals(expected, addres);
+    }
 }
