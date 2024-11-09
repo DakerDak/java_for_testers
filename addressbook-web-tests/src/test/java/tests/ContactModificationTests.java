@@ -15,7 +15,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     void canModifyContact3() {
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "", "", "", "", "", "", ""));
+            app.hbm().createContact(new ContactData("", "", "", "", "", "", "", "", "", ""));
 
         }
         var oldContacts = app.hbm().getContactList();

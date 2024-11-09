@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.cfg.Configuration;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,9 +71,22 @@ public class HibernateHelper extends HelperBase {
     }
 
 
+//    private static ContactData convert2(ContactRecord record) {
+//        return new ContactData("" + record.id, record.first_name, record.middle_name, record.last_mane, record.telephone_home, record.telephone_mobile, record.e_mail, record.photo, "", "");
+//    }
     private static ContactData convert2(ContactRecord record) {
-        return new ContactData("" + record.id, record.first_name, record.middle_name, record.last_mane, record.telephone_home, record.telephone_mobile, record.e_mail, record.photo);
-    }
+    return new ContactData().withId("" + record.id)
+            .withName(record.first_name)
+            .withMiddleName(record.middle_name)
+            .withLastName(record.last_mane)
+            .withTelephoneHome(record.telephone_home)
+            .withTelephoneMobile(record.telephone_mobile)
+            .withEmail(record.e_mail)
+            .withPhoto(record.photo)
+            .withWork(record.work)
+            .withSecondary(record.secondary);
+
+}
 
 
     private static ContactRecord convert2(ContactData data) {
@@ -83,7 +95,7 @@ public class HibernateHelper extends HelperBase {
             id = "0";
         }
 
-        return new ContactRecord(Integer.parseInt(id), data.first_name(), data.middle_name(), data.last_mane(), data.telephone_home(), data.telephone_mobile(), data.e_mail(), data.photo());
+        return new ContactRecord(Integer.parseInt(id), data.first_name(), data.middle_name(), data.last_mane(), data.telephone_home(), data.telephone_mobile(), data.e_mail(), data.photo(), data.work(), data.secondary());
     }
 
     public List<ContactData> getContactList() {

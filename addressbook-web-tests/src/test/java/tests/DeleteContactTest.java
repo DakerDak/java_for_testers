@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Random;
 
 public class DeleteContactTest extends TestBase {
@@ -20,7 +19,7 @@ public class DeleteContactTest extends TestBase {
   public void CanRemoveContact2() {
 
     if (app.hbm().getContactCount() == 0) {
-      app.hbm().createContact(new ContactData("", "", "", "PAPA", "", "", "", ""));
+      app.hbm().createContact(new ContactData("", "", "", "PAPA", "", "", "", "", "", ""));
     }
 
     var oldContacts = app.hbm().getContactList();
@@ -73,7 +72,7 @@ public class DeleteContactTest extends TestBase {
   @Test
   void canRemoveAllContactsAtOnce() {
     if (app.contacts().getCount() == 0) {
-      app.contacts().creationContact(new ContactData("", "", "", "", "", "", "", ""));
+      app.contacts().creationContact(new ContactData("", "", "", "", "", "", "", "", "", ""));
     }
     app.contacts().removeAllContacts();
     Assertions.assertEquals(0, app.contacts().getCount());
