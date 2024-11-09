@@ -28,6 +28,26 @@ public class ContactInfoTests extends TestBase {
     }
 
     @Test
+    void testPhones2() {
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
+
+        }
+        openContactsPage();
+        var contacts = app.hbm().getContactList();
+        var expected = contacts.stream().collect(Collectors.toMap(ContactData::id, contact ->
+            Stream.of(contact.telephone_home(), contact.telephone_mobile(), contact.work(), contact.secondary())
+                    .filter(s -> s != null && ! "".equals(s))
+                    .collect(Collectors.joining("\n"))
+        ));
+
+        var phones = app.contacts().getPhones();
+        Assertions.assertEquals(expected, phones);
+      
+
+    }
+
+    @Test
     void testEmail() {
         if (app.hbm().getContactCount() == 0) {
             app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
