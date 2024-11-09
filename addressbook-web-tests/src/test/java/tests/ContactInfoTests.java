@@ -14,7 +14,7 @@ public class ContactInfoTests extends TestBase {
     @Test
     void testPhones() {
         if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", ""));
+            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
 
         }
         openContactsPage();
@@ -25,5 +25,21 @@ public class ContactInfoTests extends TestBase {
                 .filter(s -> s != null && ! "".equals(s))
                 .collect(Collectors.joining("\n"));
         Assertions.assertEquals(expected, phones);
+    }
+
+    @Test
+    void testEmail() {
+        if (app.hbm().getContactCount() == 0) {
+            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
+
+        }
+        openContactsPage();
+        var contacts = app.hbm().getContactList();
+        var contact = contacts.get(0);
+        var email = app.contacts().getEmail(contact);
+        var expected = Stream.of(contact.e_mail(), contact.email2(), contact.email3())
+                .filter(s -> s != null && ! "".equals(s))
+                .collect(Collectors.joining("\n"));
+        Assertions.assertEquals(expected, email);
     }
 }

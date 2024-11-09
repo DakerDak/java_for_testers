@@ -41,15 +41,18 @@ public class ContactRecord {
 
         @Column (name = "phone2")
         public String secondary;
+        public String email2;
+        public String email3;
+        public String address;
 
         public String nickname = new String();
         public String company = new String();
         public String title = new String();
-        public String address = new String();
+//        public String address = new String();
 //        public String work = new String();
         public String fax = new String();
-        public String email2 = new String();
-        public String email3 = new String();
+//        public String email2 = new String();
+//        public String email3 = new String();
         public String homepage = new String();
 
         public ContactRecord() {
@@ -57,7 +60,7 @@ public class ContactRecord {
         }
 
         public ContactRecord(int id, String first_name, String middle_name, String last_mane,
-                             String telephone_home, String telephone_mobile, String e_mail, String photo, String work, String secondary) {
+                             String telephone_home, String telephone_mobile, String e_mail, String photo, String work, String secondary, String email2, String email3, String address) {
 
                 this.id = id;
                 this.first_name = first_name;
@@ -69,6 +72,9 @@ public class ContactRecord {
                 this.photo = photo;
                 this.work = work;
                 this.secondary = secondary;
+                this.email2 = email2;
+                this.email3 = email3;
+                this.address = address;
 
         }
 }

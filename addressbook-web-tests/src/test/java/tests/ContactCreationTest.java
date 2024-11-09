@@ -142,7 +142,10 @@ public class ContactCreationTest extends TestBase {
                 .withTelephoneHome("")
                 .withEmail("")
                 .withWork("")
-                .withSecondary(""));
+                .withSecondary("")
+                .withEmail2("")
+                .withEmail3("")
+                .withAddress(""));
         expectedList.sort(compareById);
         Assertions.assertEquals(newContacts, expectedList);
     }
@@ -153,7 +156,7 @@ public class ContactCreationTest extends TestBase {
     public static List<ContactData> negativeContactProvider() {
         var result = new ArrayList<ContactData>(List.of (
 
-                new ContactData ("", "", "middle name'", "", "", "", "", "", "", "")));
+                new ContactData ("", "", "middle name'", "", "", "", "", "", "", "", "", "", "")));
 
         return result;
     }

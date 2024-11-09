@@ -95,7 +95,7 @@ public class HibernateHelper extends HelperBase {
             id = "0";
         }
 
-        return new ContactRecord(Integer.parseInt(id), data.first_name(), data.middle_name(), data.last_mane(), data.telephone_home(), data.telephone_mobile(), data.e_mail(), data.photo(), data.work(), data.secondary());
+        return new ContactRecord(Integer.parseInt(id), data.first_name(), data.middle_name(), data.last_mane(), data.telephone_home(), data.telephone_mobile(), data.e_mail(), data.photo(), data.work(), data.secondary(), data.email2(), data.email3(), data.address());
     }
 
     public List<ContactData> getContactList() {
