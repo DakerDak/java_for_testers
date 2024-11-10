@@ -36,6 +36,23 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    public void addContactInGroup(ContactData contact, GroupData group) {
+        openContactsPage();
+        selectContact(contact);// метод который выбирает контаст
+        SelectGroupForAddContact(group); //выбирает группу для добавления контакта
+        submitContactAddGroup();
+        returnToContactPage();
+
+    }
+
+    private void submitContactAddGroup() {
+        click(By.name("add"));
+    }
+
+    private void SelectGroupForAddContact(GroupData group) {
+        new Select(manager.driver.findElement(By.name("to_group"))).selectByValue(group.id());
+    }
+
     private void selectGroup(GroupData group) {
        new Select(manager.driver.findElement(By.name("new_group"))).selectByValue(group.id());
     }

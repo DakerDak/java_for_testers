@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class ContactCreationTest extends TestBase {
 
@@ -182,6 +183,27 @@ public class ContactCreationTest extends TestBase {
     }
 
     @Test
+    public void addContactInGroup() {
+        if (app.contacts().getCount() != 0) {
+            app.contacts().removeAllContacts();
+        }
+        app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
+
+        if (app.hbm().getCroupCount() == 0) {
+            app.hbm().createGroup(new GroupData("", "ff", "", ""));
+        }
+        var group = app.hbm().getGroupList().get(0);
+        var oldRelated = app.hbm().getContactsInGroup(group);
+        var oldContacts = app.hbm().getContactList();
+        var rnd = new Random();
+        var index = rnd.nextInt(oldContacts.size());
+        app.contacts().addContactInGroup(oldContacts.get(index), group);
+        var newRelated = app.hbm().getContactsInGroup(group);
+        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
+
+    }
+
+    @Test
     public void canCreateContactInGroup() {
         var contact = new ContactData()
                 .withName(CommonFunctions.randomString(10))
@@ -191,12 +213,9 @@ public class ContactCreationTest extends TestBase {
             app.hbm().createGroup(new GroupData("", "ff", "", ""));
         }
         var group = app.hbm().getGroupList().get(0);
-
         var oldRelated = app.hbm().getContactsInGroup(group);
-
         app.contacts().creationContactWithGroup(contact, group);
         var newRelated = app.hbm().getContactsInGroup(group);
-
         Comparator<ContactData> compareById = (o1, o2) -> {
             return Integer.compare(Integer.parseInt(o1.id()), Integer.parseInt(o2.id()));
         };
@@ -207,9 +226,7 @@ public class ContactCreationTest extends TestBase {
         expectedList.sort(compareById);
         Assertions.assertEquals(newRelated , expectedList);
 
-
 //        Assertions.assertEquals(oldRelated.size() + 1, newRelated.size());
-
     }
 
 
