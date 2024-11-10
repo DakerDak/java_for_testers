@@ -12,7 +12,7 @@ import static manager.ContactHelper.openContactsPage;
 public class ContactInfoTests extends TestBase {
 
     @Test
-    void testPhones() {
+    void testCheckingContacts() {
         if (app.hbm().getContactCount() == 0) {
             app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
 
@@ -25,6 +25,17 @@ public class ContactInfoTests extends TestBase {
                 .filter(s -> s != null && ! "".equals(s))
                 .collect(Collectors.joining("\n"));
         Assertions.assertEquals(expected, phones);
+        var email = app.contacts().getEmail(contact);
+        var expected2 = Stream.of(contact.e_mail(), contact.email2(), contact.email3())
+                .filter(s -> s != null && ! "".equals(s))
+                .collect(Collectors.joining("\n"));
+        Assertions.assertEquals(expected2, email);
+
+        var addres = app.contacts().getAddres(contact);
+        var expected3 = Stream.of(contact.address())
+                .filter(s -> s != null && ! "".equals(s))
+                .collect(Collectors.joining("\n"));
+        Assertions.assertEquals(expected3, addres);
     }
 
     @Test
@@ -43,39 +54,39 @@ public class ContactInfoTests extends TestBase {
 
         var phones = app.contacts().getPhones();
         Assertions.assertEquals(expected, phones);
-      
+
 
     }
 
-    @Test
-    void testEmail() {
-        if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
-
-        }
-        openContactsPage();
-        var contacts = app.hbm().getContactList();
-        var contact = contacts.get(0);
-        var email = app.contacts().getEmail(contact);
-        var expected = Stream.of(contact.e_mail(), contact.email2(), contact.email3())
-                .filter(s -> s != null && ! "".equals(s))
-                .collect(Collectors.joining("\n"));
-        Assertions.assertEquals(expected, email);
-    }
-
-    @Test
-    void testAddres() {
-        if (app.hbm().getContactCount() == 0) {
-            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
-
-        }
-        openContactsPage();
-        var contacts = app.hbm().getContactList();
-        var contact = contacts.get(0);
-        var addres = app.contacts().getAddres(contact);
-        var expected = Stream.of(contact.address())
-                .filter(s -> s != null && ! "".equals(s))
-                .collect(Collectors.joining("\n"));
-        Assertions.assertEquals(expected, addres);
-    }
+//    @Test
+//    void testEmail() {
+//        if (app.hbm().getContactCount() == 0) {
+//            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
+//
+//        }
+//        openContactsPage();
+//        var contacts = app.hbm().getContactList();
+//        var contact = contacts.get(0);
+//        var email = app.contacts().getEmail(contact);
+//        var expected = Stream.of(contact.e_mail(), contact.email2(), contact.email3())
+//                .filter(s -> s != null && ! "".equals(s))
+//                .collect(Collectors.joining("\n"));
+//        Assertions.assertEquals(expected, email);
+//    }
+//
+//    @Test
+//    void testAddres() {
+//        if (app.hbm().getContactCount() == 0) {
+//            app.hbm().createContact(new ContactData("", "", "", "", "6", "7", "", "", "", "", "", "", ""));
+//
+//        }
+//        openContactsPage();
+//        var contacts = app.hbm().getContactList();
+//        var contact = contacts.get(0);
+//        var addres = app.contacts().getAddres(contact);
+//        var expected = Stream.of(contact.address())
+//                .filter(s -> s != null && ! "".equals(s))
+//                .collect(Collectors.joining("\n"));
+//        Assertions.assertEquals(expected, addres);
+//    }
 }
