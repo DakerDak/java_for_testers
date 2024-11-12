@@ -2,19 +2,31 @@ package ru.stqa.mantis.tests;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import ru.stqa.mantis.common.CommonFunctions;
 
 import java.time.Duration;
+import java.util.Random;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static java.lang.String.format;
 
 public class UserRegistrationTests extends TestBase {
 
+    private static Stream<Arguments> generateRandomUsernames() {
+        return Stream.generate(() -> {
+            int length = new Random().nextInt(8) + 1; // Длина от 1 до 8 символов включительно
+            String username = CommonFunctions.randomString(length);
+            return Arguments.of(username);
+        }).limit(1); // Ограничить количество итераций до 10
+    }
+
 
     @ParameterizedTest
-    @ValueSource(strings = "venera4")
+    @MethodSource("generateRandomUsernames")
     void canRegisterUser(String username) {
         var email = format("%s@localhost", username);
         app.jamesCli().addUser(email, "password"); //создать пользователя (адрес) на почтовом сервире (JamesHelper)
