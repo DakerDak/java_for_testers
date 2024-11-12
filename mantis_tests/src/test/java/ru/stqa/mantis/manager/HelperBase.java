@@ -30,4 +30,6 @@ public class HelperBase {
     return manager.driver().findElements(locator).size() > 0;
 
     }
+
+
 }
