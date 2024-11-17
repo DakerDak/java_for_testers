@@ -19,7 +19,7 @@ public class UserCreationTests extends TestBase {
     void canCreateUser(String user) {
         var email = String.format("%s@localhost", user);
         var password = "password";
-        app.jamesCli().addUser(email, password);
+        app.jamesApi().addUser(email, password);
 
         app.user().startCreation(user);
 
