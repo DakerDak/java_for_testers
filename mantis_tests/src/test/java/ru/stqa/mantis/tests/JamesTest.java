@@ -11,4 +11,6 @@ public class JamesTest extends TestBase {
             String.format("%s@localhost", CommonFunctions.randomString(8)),
             "password");
     }
+
+
 }

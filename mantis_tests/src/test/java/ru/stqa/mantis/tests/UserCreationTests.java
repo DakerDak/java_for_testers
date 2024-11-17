@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.stqa.mantis.common.CommonFunctions;
 import ru.stqa.mantis.model.DeveloperMailUser;
+import ru.stqa.mantis.model.UserData;
 
 import java.time.Duration;
 import java.util.stream.Stream;
@@ -59,5 +60,13 @@ public class UserCreationTests extends TestBase {
 //
 //        app.http().login(user, password);
 //        Assertions.assertTrue(app.http().isLoggedIn());
+//    }
+
+//    @Test
+//    void canCreateUser() {
+//        app.rest().createUser(new UserData()
+//                .withUsername(user)
+//                .withEmail(email));
+//
 //    }
 }
